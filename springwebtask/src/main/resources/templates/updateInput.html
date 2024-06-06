@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>更新</title>
+    <link th:href="@{/css/commons.css}" rel="stylesheet">
+</head>
+<body>
+<div class="header">
+    <th:blockquote th:insert="common/header"></th:blockquote>
+</div>
+
+<hr>
+
+<div class="insert">
+    <div class="form-body">
+        <p class="error" th:text="${errormeg}"></p>
+
+<!--        <form action="@{/updateInput/{id} (id=${product.id})}" method="post" th:object="${ProductForm}">-->
+            <form action="" method="post" th:object="${ProductForm}">
+            <fieldset class="label-130">
+                <div>
+                    <label>商品ID</label>
+<!--                    <input type="text" name="*{product_id}" th:value="*{product.product_id}" class="base-text">-->
+<!--                    <input type="text" name="*{product_id}" th:value="${product.product_id}" class="base-text">-->
+                    <input type="text" th:field="*{product_id}" class="base-text">
+                    <span class="error" th:each="error: ${#fields.errors('product_id')}">
+                        [[${error}]]
+                    </span>
+                </div>
+                <div>
+                    <label>商品名</label>
+<!--                    <input type="text" name="*{name}" th:value="${product.name}" class="base-text">-->
+                    <input type="text" th:field="*{name}" class="base-text">
+                    <span class="error" th:each="error: ${#fields.errors('name')}">
+                        [[${error}]]
+                    </span>
+                </div>
+                <div>
+                    <label>単価</label>
+<!--                    <input type="text" name="*{price}" th:value="${product.price}" class="base-text">-->
+                    <input type="text" th:field="*{price}" class="base-text">
+                    <span class="error" th:each="error: ${#fields.errors('price')}">
+                        [[${error}]]
+                    </span>
+                </div>
+                <div>
+                    <label>カテゴリ</label> <select name="categories_id" class="base-text">
+                    <option th:each="category : ${select}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"
+                            th:selected="${category.id==id}"></option>
+                </select>
+
+                </div>
+                <div>
+                    <label>商品説明</label>
+<!--                    <textarea name="*{description}" class="base-text" th:text="${product.description}"></textarea>-->
+<!--                    <textarea th:field="*{description}" class="base-text" th:text="${product.description}"></textarea>-->
+                    <textarea th:field="*{description}" class="base-text" th:text="*{description}"></textarea>
+                </div>
+                <div>
+                    <label>画像</label>
+                    <input type="file" name="file">
+                    <span class="error">エラーメッセージ</span>
+                </div>
+            </fieldset>
+            <div class="btns">
+                <button type="button" onclick="openModal()" class="basic-btn">更新</button>
+                <input type="button" onclick="location.href='/menu'" value="メニューに戻る" class="cancel-btn">
+            </div>
+            <div id="modal">
+                <p class="modal-message">更新しますか？</p>
+                <div class="btns">
+                    <button type="submit" id="update-btn" class="basic-btn">更新</button>
+                    <button type="button" onclick="closeModal()" class="cancel-btn">キャンセル</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="fadeLayer"></div>
+<script th:src="@{/js/commons.js}"></script>
+<script>
+<!--    'use strict'-->
+<!--    document.getElementById('update-btn').addEventListener('click', () => {-->
+<!--      location.href = '/menu'-->
+<!--    })-->
+</script>
+</body>
+</html>

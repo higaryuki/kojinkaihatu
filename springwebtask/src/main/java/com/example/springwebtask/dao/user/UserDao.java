@@ -1,17 +1,14 @@
-package com.example.springwebtask.dao;
+package com.example.springwebtask.dao.user;
 
-import com.example.springwebtask.Entity.ProductsRecord;
-import com.example.springwebtask.Entity.UserRecord;
+import com.example.springwebtask.Entity.record.UserRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public class UserDao implements IUserDao{
+public class UserDao implements IUserDao {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>商品詳細</title>
-    <link href="css/commons.css" rel="stylesheet">
+    <link th:href="@{/css/commons.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -18,9 +18,9 @@
         <div class="img_block">
             <img src="images/マッキー.png" class="product-img"><br>
         </div>
-        <form action="delete" method="post">
+        <form th:action="@{/detail/{id} (id=${product.id})}" method="post">
             <fieldset class="label-130 product_block">
-                <p class="error">エラーメッセージ</p>
+                <p class="error" th:text="${errormeg}"></p>
                 <div>
                     <label>商品ID</label>
                     <input type="text" name="productId" th:value="${product.product_id}" readonly class="base-text">
@@ -44,14 +44,14 @@
             </fieldset>
             <div>
                 <div class="btns">
-                    <input type="button" onclick="openModal()" value="削除" class="basic-btn">
-                    <input type="button" onclick="location.href='./updateInput.html'" value="編集" class="basic-btn">
+                    <input type="button" onclick="openModal()" value="削除" class="basic-btn" th:if="${session.loginuser.role} == 1">
+                    <input type="button" th:onclick="|location.href='/updateInput/${product.id}'|" value="編集" class="basic-btn" th:if="${session.loginuser.role} == 1">
                     <input type="button" onclick="location.href='/menu'" value="戻る" class="cancel-btn">
                 </div>
                 <div id="modal">
                     <p class="modal-message">削除しますか？</p>
                     <div class="btns">
-                        <button type="button" id="delete-btn" class="basic-btn">削除</button>
+                        <button type="submit" id="delete-btn" class="basic-btn">削除</button>
                         <button type="button" onclick="closeModal()" class="cancel-btn">キャンセル</button>
                     </div>
                 </div>
@@ -60,12 +60,12 @@
     </div>
 </div>
 <div id="fadeLayer"></div>
-<script src="./js/commons.js"></script>
-<script>
+<script th:src="@{/js/commons.js}"></script>
+<!--<script>
     'use strict'
     document.getElementById('delete-btn').addEventListener('click', () => {
-      location.href = './menu.html'
+      location.href = '/menu'
     })
-</script>
+</script>!-->
 </body>
 </html>
