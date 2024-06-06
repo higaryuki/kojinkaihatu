@@ -1,11 +1,18 @@
 package com.example.springwebtask.Controller;
 
-import com.example.springwebtask.Entity.*;
-import com.example.springwebtask.dao.ProductDao;
-import com.example.springwebtask.dao.UserDao;
-import com.example.springwebtask.service.InsertService;
-import com.example.springwebtask.service.ProductService;
-import com.example.springwebtask.service.UserService;
+import com.example.springwebtask.Entity.form.DeleteForm;
+import com.example.springwebtask.Entity.form.ProductForm;
+import com.example.springwebtask.Entity.form.UserForm;
+import com.example.springwebtask.Entity.record.CategoryRecord;
+import com.example.springwebtask.Entity.record.InsertRecord;
+import com.example.springwebtask.Entity.record.ProductsRecord;
+import com.example.springwebtask.Entity.record.UserRecord;
+import com.example.springwebtask.dao.product.ProductDao;
+import com.example.springwebtask.dao.user.UserDao;
+import com.example.springwebtask.service.delete.DeleteServis;
+import com.example.springwebtask.service.insert.InsertService;
+import com.example.springwebtask.service.product.ProductService;
+import com.example.springwebtask.service.user.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,16 +28,13 @@ import java.util.Objects;
 public class controller {
 
     @Autowired
-    UserDao userDao;
-    @Autowired
-    ProductDao productDao;
-
-    @Autowired
     UserService userService;
     @Autowired
     ProductService productService;
     @Autowired
     InsertService insertService;
+    @Autowired
+    DeleteServis deleteServis;
 
     @Autowired
     private HttpSession session;
@@ -57,7 +61,7 @@ public class controller {
            return "index";
        }
 
-       var loginuser = new  UserRecord(user.id(),user.login_id(), user.password(), user.name(), user.role(),user.created_at(),user.updated_at());
+       var loginuser = new UserRecord(user.id(),user.login_id(), user.password(), user.name(), user.role(),user.created_at(),user.updated_at());
        session.setAttribute("loginuser",loginuser);
        return "redirect:/menu";
     }
@@ -75,37 +79,37 @@ public class controller {
         }else {
             list = productService.findName(keyword);
         }
-        System.out.println("接続確認" + list);
+        //System.out.println("接続確認" + list);
         
         model.addAttribute("menu", list);
         var count = list.size();
-        System.out.println("接続確認"+count);
+        //System.out.println("接続確認"+count);
         model.addAttribute("count",count);
         return "menu";
     }
 
     //新規登録
     @GetMapping("/insert")
-    public String insert(@ModelAttribute("InsertForm") InsertForm insertForm,Model model){
+    public String insert(@ModelAttribute("ProductForm") ProductForm productForm, Model model){
         List<CategoryRecord> list = insertService.findCategory();
         model.addAttribute("select",list);
-        System.out.println(list);
+        //System.out.println(list);
         return "insert";
     }
 
     @PostMapping("/insert")
-    public String insert(@Validated @ModelAttribute("InsertForm") InsertForm insertForm,BindingResult bindingResult,Model model){
+    public String insert(@Validated @ModelAttribute("ProductForm") ProductForm productForm, BindingResult bindingResult, Model model){
         List<CategoryRecord> list = insertService.findCategory();
         model.addAttribute("select",list);
-        System.out.println(list);
+        //System.out.println(list);
         if(bindingResult.hasErrors()){
             return "insert";
         }
 
-        InsertRecord proId = insertService.findById(insertForm.getProduct_id());
+        InsertRecord proId = insertService.findById(productForm.getProduct_id());
 
         if (proId==null) {
-            var insert = new InsertRecord(insertForm.getProduct_id(), insertForm.getName(), insertForm.getPrice(), insertForm.getCategories_id(), insertForm.getDescription());
+            var insert = new InsertRecord(productForm.getProduct_id(), productForm.getName(), productForm.getPrice(), productForm.getCategories_id(), productForm.getDescription());
             insertService.insert(insert);
             return "success";
         }else {
@@ -117,9 +121,31 @@ public class controller {
     @GetMapping("detail/{id}")
     public String detail(@PathVariable("id")int id,Model model){
         var list = productService.findProId(id);
-        System.out.println(list);
+        //System.out.println(list);
         model.addAttribute("product",list);
-        return "/detail";
+        return "detail";
+    }
+
+    @PostMapping("detail/{id}")
+    public String detaildel(@PathVariable("id")int id,Model model){
+        System.out.println(id);
+
+        /*var product = productService.findProId(id);
+        if(product==null){
+            model.addAttribute("errormeg","IDまたはパスワードが不正です");
+        }*/
+        deleteServis.delete(id);
+        return "/success";
+    }
+
+    @GetMapping("updateInput/{id}")
+    public String update(@PathVariable("id")int id,Model model){
+        var prolist = productService.findProId(id);
+        var catelist = insertService.findCategory();
+        //System.out.println(list);
+        model.addAttribute("product",prolist);
+        model.addAttribute("select",catelist);
+        return "updateInput";
     }
 }
 

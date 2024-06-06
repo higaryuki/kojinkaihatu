@@ -1,4 +1,4 @@
-package com.example.springwebtask.Entity;
+package com.example.springwebtask.Entity.form;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;

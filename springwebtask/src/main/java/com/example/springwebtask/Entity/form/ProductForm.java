@@ -1,11 +1,11 @@
-package com.example.springwebtask.Entity;
+package com.example.springwebtask.Entity.form;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class InsertForm {
+public class ProductForm {
 
     @NotEmpty(message = "商品IDは必須です")
     String product_id;

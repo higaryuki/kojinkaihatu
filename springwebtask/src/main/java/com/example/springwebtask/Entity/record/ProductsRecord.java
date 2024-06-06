@@ -1,4 +1,4 @@
-package com.example.springwebtask.Entity;
+package com.example.springwebtask.Entity.record;
 
 import java.sql.Timestamp;
 

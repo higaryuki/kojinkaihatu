@@ -1,8 +1,7 @@
-package com.example.springwebtask.dao;
+package com.example.springwebtask.dao.insert;
 
-import com.example.springwebtask.Entity.CategoryRecord;
-import com.example.springwebtask.Entity.InsertRecord;
-import com.example.springwebtask.Entity.ProductsRecord;
+import com.example.springwebtask.Entity.record.CategoryRecord;
+import com.example.springwebtask.Entity.record.InsertRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class InsertDao implements IInsertDao{
+public class InsertDao implements IInsertDao {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;

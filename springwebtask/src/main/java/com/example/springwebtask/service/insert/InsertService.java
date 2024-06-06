@@ -1,16 +1,16 @@
-package com.example.springwebtask.service;
+package com.example.springwebtask.service.insert;
 
-import com.example.springwebtask.Entity.CategoryRecord;
-import com.example.springwebtask.Entity.InsertRecord;
-import com.example.springwebtask.Entity.ProductsRecord;
-import com.example.springwebtask.dao.InsertDao;
+import com.example.springwebtask.Entity.record.CategoryRecord;
+import com.example.springwebtask.Entity.record.InsertRecord;
+import com.example.springwebtask.dao.insert.InsertDao;
+import com.example.springwebtask.service.insert.IInsertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class InsertService implements IInsertService{
+public class InsertService implements IInsertService {
 
     @Autowired
     InsertDao insertDao;
