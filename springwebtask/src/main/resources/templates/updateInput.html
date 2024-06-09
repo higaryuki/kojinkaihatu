@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>更新</title>
+<<<<<<< HEAD
     <link th:href="@{/css/commons.css}" rel="stylesheet">
+=======
+    <link href="css/commons.css" rel="stylesheet">
+>>>>>>> origin/master
 </head>
 <body>
 <div class="header">
@@ -14,6 +18,7 @@
 
 <div class="insert">
     <div class="form-body">
+<<<<<<< HEAD
         <p class="error" th:text="${errormeg}"></p>
 
 <!--        <form action="@{/updateInput/{id} (id=${product.id})}" method="post" th:object="${ProductForm}">-->
@@ -46,11 +51,35 @@
                 </div>
                 <div>
                     <label>カテゴリ</label> <select name="categories_id" class="base-text">
+=======
+        <p class="error">エラーメッセージ</p>
+
+        <form action="@{/updateInput/{id} (id=${product.id})}" method="get">
+            <fieldset class="label-130">
+                <div>
+                    <label>商品ID</label>
+                    <input type="text" name="productId" th:value="${product.product_id}" class="base-text">
+                    <span class="error">エラーメッセージ</span>
+                </div>
+                <div>
+                    <label>商品名</label>
+                    <input type="text" name="name" th:value="${product.name}" class="base-text">
+                    <span class="error">エラーメッセージ</span>
+                </div>
+                <div>
+                    <label>単価</label>
+                    <input type="text" name="price" th:value="${product.price}" class="base-text">
+                    <span class="error">エラーメッセージ</span>
+                </div>
+                <div>
+                    <label>カテゴリ</label> <select name="categoryId" class="base-text">
+>>>>>>> origin/master
                     <option th:each="category : ${select}"
                             th:value="${category.id}"
                             th:text="${category.name}"
                             th:selected="${category.id==id}"></option>
                 </select>
+<<<<<<< HEAD
 
                 </div>
                 <div>
@@ -58,6 +87,12 @@
 <!--                    <textarea name="*{description}" class="base-text" th:text="${product.description}"></textarea>-->
 <!--                    <textarea th:field="*{description}" class="base-text" th:text="${product.description}"></textarea>-->
                     <textarea th:field="*{description}" class="base-text" th:text="*{description}"></textarea>
+=======
+                </div>
+                <div>
+                    <label>商品説明</label>
+                    <textarea name="description" class="base-text" th:text="${product.description}"></textarea>
+>>>>>>> origin/master
                 </div>
                 <div>
                     <label>画像</label>
@@ -72,7 +107,11 @@
             <div id="modal">
                 <p class="modal-message">更新しますか？</p>
                 <div class="btns">
+<<<<<<< HEAD
                     <button type="submit" id="update-btn" class="basic-btn">更新</button>
+=======
+                    <button type="button" id="update-btn" class="basic-btn">更新</button>
+>>>>>>> origin/master
                     <button type="button" onclick="closeModal()" class="cancel-btn">キャンセル</button>
                 </div>
             </div>
@@ -80,12 +119,21 @@
     </div>
 </div>
 <div id="fadeLayer"></div>
+<<<<<<< HEAD
 <script th:src="@{/js/commons.js}"></script>
 <script>
 <!--    'use strict'-->
 <!--    document.getElementById('update-btn').addEventListener('click', () => {-->
 <!--      location.href = '/menu'-->
 <!--    })-->
+=======
+<script src="./js/commons.js"></script>
+<script>
+    'use strict'
+    document.getElementById('update-btn').addEventListener('click', () => {
+      location.href = '/menu'
+    })
+>>>>>>> origin/master
 </script>
 </body>
 </html>
